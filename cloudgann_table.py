@@ -380,7 +380,7 @@ with gr.Blocks(css=custom_css, title="CloudGann Table", theme=gr.themes.Soft()) 
                 table_output = gr.HTML()
             
             with gr.TabItem("Data View"):
-                dataframe_output = gr.Dataframe(max_rows=20)
+               dataframe_output = gr.Dataframe()
             
             with gr.TabItem("Chart Analysis"):
                 chart_output = gr.Plot()
