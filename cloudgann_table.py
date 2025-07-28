@@ -103,113 +103,73 @@ def calculate_gann_data(base_value, factor, levels, tolerance):
         return [], 0, 0
 
 def create_advanced_table(base_value, factor, levels, tolerance, show_chart):
-    """Create advanced GANN table with statistics and visualizations"""
+    """Create simplified GANN table with better visibility"""
     try:
         data, special_count, avg_degree = calculate_gann_data(base_value, factor, levels, tolerance)
         
         if not data:
             return "Error in calculation", pd.DataFrame(), None
         
-        # Create beautiful HTML table
+        print(f"Generated data for {len(data)} levels")  # Debug print
+        
+        # Create simplified HTML table
         html = f"""
-        <div style="font-family: 'Segoe UI', sans-serif; margin: 20px 0;">
+        <div style="font-family: 'Arial', sans-serif; margin: 20px 0; max-width: 100%; overflow: visible;">
             <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                        color: white; padding: 20px; border-radius: 15px 15px 0 0; text-align: center;">
-                <h2 style="margin: 0; font-size: 1.8rem;">GANN Dynamic Analysis Results</h2>
-                <p style="margin: 5px 0 0 0; opacity: 0.9;">Advanced Trading Calculator with Zodiac Analysis</p>
+                        color: white; padding: 25px; border-radius: 15px 15px 0 0; text-align: center;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h2 style="margin: 0; font-size: 2rem; font-weight: 700;">
+                    GANN Analysis Table - {levels} Levels ({len(data)} rows generated)
+                </h2>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-                        gap: 15px; padding: 20px; background: #f8f9fa;">
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; 
-                           box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <h3 style="color: #667eea; margin: 0; font-size: 1.5rem;">{levels}</h3>
-                    <p style="margin: 5px 0 0 0; color: #666;">Total Levels</p>
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; 
-                           box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <h3 style="color: #667eea; margin: 0; font-size: 1.5rem;">{special_count}</h3>
-                    <p style="margin: 5px 0 0 0; color: #666;">Special Angles</p>
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; 
-                           box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <h3 style="color: #667eea; margin: 0; font-size: 1.5rem;">{avg_degree:.1f}°</h3>
-                    <p style="margin: 5px 0 0 0; color: #666;">Average Degree</p>
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; 
-                           box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <h3 style="color: #667eea; margin: 0; font-size: 1.5rem;">{tolerance}°</h3>
-                    <p style="margin: 5px 0 0 0; color: #666;">Tolerance</p>
-                </div>
-            </div>
-            
-            <div style="padding: 15px; background: #ffffff; display: flex; justify-content: center; 
-                        flex-wrap: wrap; gap: 20px; border-top: 1px solid #e0e0e0;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div style="width: 20px; height: 20px; background: #a6f1a6; border-radius: 4px;"></div>
-                    <span style="font-size: 0.9rem;">Cardinal Angles</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div style="width: 20px; height: 20px; background: #a6c8f1; border-radius: 4px;"></div>
-                    <span style="font-size: 0.9rem;">Ordinal Angles</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div style="width: 20px; height: 20px; background: #f1d3a6; border-radius: 4px;"></div>
-                    <span style="font-size: 0.9rem;">Special Angles</span>
-                </div>
-            </div>
-            
-            <div style="overflow-x: auto; max-height: 500px; overflow-y: auto;">
-                <table style="width: 100%; border-collapse: collapse; background: white;">
-                    <thead style="background: #f8f9fa; position: sticky; top: 0; z-index: 10;">
+            <div style="overflow-x: auto; overflow-y: visible; border-radius: 0 0 15px 15px; 
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-height: none;">
+                <table style="width: 100%; border-collapse: collapse; background: white; min-width: 1200px;">
+                    <thead style="background: linear-gradient(145deg, #2c3e50, #34495e);">
                         <tr>
-                            <th style="padding: 12px; border: 1px solid #ddd; font-weight: 600;">Level</th>
-                            <th style="padding: 12px; border: 1px solid #ddd; font-weight: 600;">Up Value</th>
-                            <th style="padding: 12px; border: 1px solid #ddd; font-weight: 600;">Up Degree & Zodiac</th>
-                            <th style="padding: 12px; border: 1px solid #ddd; font-weight: 600;">Down Value</th>
-                            <th style="padding: 12px; border: 1px solid #ddd; font-weight: 600;">Down Degree & Zodiac</th>
-                            <th style="padding: 12px; border: 1px solid #ddd; font-weight: 600;">Analysis</th>
+                            <th style="padding: 20px 15px; border: 1px solid #ddd; font-weight: 700; color: white; 
+                                       font-size: 1.2rem; text-align: center;">Sr.No</th>
+                            <th style="padding: 20px 15px; border: 1px solid #ddd; font-weight: 700; color: white; 
+                                       font-size: 1.2rem; text-align: center;">Up Level</th>
+                            <th style="padding: 20px 15px; border: 1px solid #ddd; font-weight: 700; color: white; 
+                                       font-size: 1.2rem; text-align: center;">Degree</th>
+                            <th style="padding: 20px 15px; border: 1px solid #ddd; font-weight: 700; color: white; 
+                                       font-size: 1.2rem; text-align: center;">Down Level</th>
+                            <th style="padding: 20px 15px; border: 1px solid #ddd; font-weight: 700; color: white; 
+                                       font-size: 1.2rem; text-align: center;">Degree</th>
                         </tr>
                     </thead>
                     <tbody>
         """
         
-        for row in data:
-            priority = "High Priority" if row['Up_Type'] != 'Regular' or row['Down_Type'] != 'Regular' else "Standard"
-            emoji = "🎯" if row['Up_Type'] != 'Regular' or row['Down_Type'] != 'Regular' else "📊"
+        # Generate all rows - ensure we iterate through ALL data
+        for i, row in enumerate(data):
+            row_bg = "#f8f9fa" if i % 2 == 0 else "#ffffff"
             
             html += f"""
-                <tr style="transition: background-color 0.2s ease;" 
-                    onmouseover="this.style.backgroundColor='#f8f9fa'" 
-                    onmouseout="this.style.backgroundColor=''">
-                    <td style="padding: 10px; border: 1px solid #eee; text-align: center; font-weight: bold;">
+                <tr style="background-color: {row_bg}; border-bottom: 1px solid #ddd;">
+                    <td style="padding: 18px 15px; text-align: center; font-weight: 700; font-size: 1.2rem; 
+                               color: #2c3e50; border: 1px solid #ddd;">
                         {row['Level']}
                     </td>
-                    <td style="padding: 10px; border: 1px solid #eee; text-align: center;">
+                    <td style="padding: 18px 15px; text-align: center; font-weight: 700; font-size: 1.3rem; 
+                               color: #27ae60; border: 1px solid #ddd;">
                         {row['Up_Value']:,}
                     </td>
-                    <td style="padding: 10px; border: 1px solid #eee; text-align: center; 
-                               background-color: {row['Up_Color']}; font-weight: 600;">
-                        <div style="margin-bottom: 5px;">{row['Up_Degree']}°</div>
-                        <div style="font-size: 0.85rem; opacity: 0.8;">{row['Up_Zodiac']}</div>
-                        <div style="font-size: 0.75rem; margin-top: 3px; color: #666;">
-                            {row['Up_Type']}
-                        </div>
+                    <td style="padding: 18px 15px; text-align: center; background-color: {row['Up_Color']}; 
+                               font-weight: 600; border: 1px solid #ddd; color: #2c3e50;">
+                        <div style="margin-bottom: 6px; font-size: 1.2rem; font-weight: 700;">{row['Up_Degree']}°</div>
+                        <div style="font-size: 1rem; color: #34495e;">{row['Up_Zodiac']}</div>
                     </td>
-                    <td style="padding: 10px; border: 1px solid #eee; text-align: center;">
+                    <td style="padding: 18px 15px; text-align: center; font-weight: 700; font-size: 1.3rem; 
+                               color: #e74c3c; border: 1px solid #ddd;">
                         {row['Down_Value']:,}
                     </td>
-                    <td style="padding: 10px; border: 1px solid #eee; text-align: center; 
-                               background-color: {row['Down_Color']}; font-weight: 600;">
-                        <div style="margin-bottom: 5px;">{row['Down_Degree']}°</div>
-                        <div style="font-size: 0.85rem; opacity: 0.8;">{row['Down_Zodiac']}</div>
-                        <div style="font-size: 0.75rem; margin-top: 3px; color: #666;">
-                            {row['Down_Type']}
-                        </div>
-                    </td>
-                    <td style="padding: 10px; border: 1px solid #eee; text-align: center; font-size: 0.8rem;">
-                        {emoji}<br>
-                        {priority}
+                    <td style="padding: 18px 15px; text-align: center; background-color: {row['Down_Color']}; 
+                               font-weight: 600; border: 1px solid #ddd; color: #2c3e50;">
+                        <div style="margin-bottom: 6px; font-size: 1.2rem; font-weight: 700;">{row['Down_Degree']}°</div>
+                        <div style="font-size: 1rem; color: #34495e;">{row['Down_Zodiac']}</div>
                     </td>
                 </tr>
             """
@@ -217,11 +177,6 @@ def create_advanced_table(base_value, factor, levels, tolerance, show_chart):
         html += """
                     </tbody>
                 </table>
-            </div>
-            <div style="padding: 15px; background: #f8f9fa; text-align: center; border-radius: 0 0 15px 15px;">
-                <p style="margin: 0; color: #666; font-size: 0.9rem;">
-                    Trading Tip: Pay special attention to Cardinal and Ordinal angles for potential support/resistance levels.
-                </p>
             </div>
         </div>
         """
@@ -253,11 +208,11 @@ def create_advanced_table(base_value, factor, levels, tolerance, show_chart):
         
     except Exception as e:
         error_html = f"""
-        <div style="background: #ffe6e6; border: 1px solid #ff9999; border-radius: 10px; 
-                    padding: 20px; text-align: center; color: #cc0000; font-family: 'Segoe UI', sans-serif;">
-            <h3>Calculation Error</h3>
-            <p>Error: {str(e)}</p>
-            <p>Please check your input values and try again.</p>
+        <div style="background: #ffe6e6; border: 2px solid #ff9999; 
+                    border-radius: 10px; padding: 20px; text-align: center; color: #c62828; 
+                    font-family: 'Arial', sans-serif;">
+            <h3 style="margin: 0 0 10px 0; font-size: 1.3rem;">⚠️ Calculation Error</h3>
+            <p style="margin: 10px 0; font-size: 1rem;">Error: {str(e)}</p>
         </div>
         """
         return error_html, pd.DataFrame(), None
@@ -280,11 +235,11 @@ def create_degree_chart(data):
             mode='markers+lines',
             name='Up Degrees',
             marker=dict(
-                size=10,
+                size=12,
                 color=[{'Cardinal': '#4CAF50', 'Ordinal': '#2196F3', 'Special': '#FF9800', 'Regular': '#9E9E9E'}[t] for t in up_types],
-                line=dict(width=2, color='white')
+                line=dict(width=3, color='white')
             ),
-            line=dict(color='#667eea', width=3)
+            line=dict(color='#667eea', width=4)
         ))
         
         # Add down degrees
@@ -294,11 +249,11 @@ def create_degree_chart(data):
             mode='markers+lines',
             name='Down Degrees',
             marker=dict(
-                size=10,
+                size=12,
                 color=[{'Cardinal': '#4CAF50', 'Ordinal': '#2196F3', 'Special': '#FF9800', 'Regular': '#9E9E9E'}[t] for t in down_types],
-                line=dict(width=2, color='white')
+                line=dict(width=3, color='white')
             ),
-            line=dict(color='#764ba2', width=3)
+            line=dict(color='#764ba2', width=4)
         ))
         
         # Add horizontal lines for important angles
@@ -306,15 +261,16 @@ def create_degree_chart(data):
                                    (270, '270°', '#4CAF50'), (360, '360°', '#4CAF50'),
                                    (45, '45°', '#2196F3'), (135, '135°', '#2196F3'),
                                    (225, '225°', '#2196F3'), (315, '315°', '#2196F3')]:
-            fig.add_hline(y=angle, line_dash="dash", line_color=color, opacity=0.5)
+            fig.add_hline(y=angle, line_dash="dash", line_color=color, opacity=0.6)
         
         fig.update_layout(
             title='GANN Degree Analysis Chart',
             xaxis_title='Level',
             yaxis_title='Degree (°)',
             template='plotly_white',
-            height=500,
-            showlegend=True
+            height=600,
+            showlegend=True,
+            font=dict(size=14)
         )
         
         return fig
@@ -325,65 +281,79 @@ def reset_form():
     """Reset form to default values"""
     return 3338, 0.11, 5, 5, False
 
-# Custom CSS for modern styling
+# Enhanced custom CSS for modern dynamic styling
 custom_css = """
 .gradio-container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-family: 'Arial', sans-serif !important;
 }
 
 .gr-button {
     background: linear-gradient(45deg, #667eea, #764ba2) !important;
     border: none !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     color: white !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    padding: 10px 20px !important;
     transition: all 0.3s ease !important;
 }
 
 .gr-button:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+.gr-textbox, .gr-number {
+    border-radius: 6px !important;
+    border: 2px solid #ddd !important;
+    transition: all 0.3s ease !important;
+}
+
+.gr-textbox:focus, .gr-number:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1) !important;
 }
 """
 
 # Create Gradio interface
 with gr.Blocks(css=custom_css, title="CloudGann Table", theme=gr.themes.Soft()) as demo:
     gr.HTML("""
-    <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                border-radius: 20px; margin-bottom: 30px; color: white;">
-        <h1 style="font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">CloudGann Table</h1>
+    <div style="text-align: center; padding: 30px; 
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                border-radius: 15px; margin-bottom: 25px; color: white;">
+        <h1 style="font-size: 2.8rem; margin: 0; font-weight: 800;">CloudGann Table</h1>
         <p style="font-size: 1.2rem; margin: 10px 0 0 0; opacity: 0.9;">
-            Professional GANN Dynamic Trading Calculator
+            Professional GANN Trading Calculator
         </p>
     </div>
     """)
     
-    with gr.Row():
-        with gr.Column(scale=1):
-            gr.HTML("<h3 style='color: #667eea;'>Configuration</h3>")
-            
-            base_value = gr.Number(label="Base Value", value=3338)
-            factor = gr.Number(label="Factor", value=0.11, step=0.01)
-            levels = gr.Number(label="Levels", value=5, minimum=1, maximum=50, step=1)
-            tolerance = gr.Number(label="Tolerance (°)", value=5, minimum=1, maximum=15, step=1)
-            show_chart = gr.Checkbox(label="Show Chart", value=True)
-            
-            with gr.Row():
-                calculate_btn = gr.Button("Calculate", variant="primary")
-                reset_btn = gr.Button("Reset", variant="secondary")
+    # Configuration Section - Row Layout
+    gr.HTML("<h3 style='color: #2c3e50; font-size: 1.4rem; font-weight: 700; margin-bottom: 15px; text-align: center;'>⚙️ Configuration</h3>")
     
-    with gr.Column(scale=2):
-        gr.HTML("<h3 style='color: #667eea;'>Results</h3>")
+    with gr.Row():
+        base_value = gr.Number(label="Base Value", value=3338, scale=1)
+        factor = gr.Number(label="Factor", value=0.11, step=0.01, scale=1)
+        levels = gr.Number(label="Levels", value=5, minimum=1, maximum=50, step=1, scale=1)
+        tolerance = gr.Number(label="Tolerance (°)", value=5, minimum=1, maximum=15, step=1, scale=1)
+        show_chart = gr.Checkbox(label="Show Chart", value=True, scale=1)
+    
+    with gr.Row():
+        calculate_btn = gr.Button("🚀 Calculate", variant="primary", scale=1)
+        reset_btn = gr.Button("🔄 Reset", variant="secondary", scale=1)
+    
+    # Results Section - Full Width
+    gr.HTML("<h3 style='color: #2c3e50; font-size: 1.4rem; font-weight: 700; margin: 25px 0 15px 0; text-align: center;'>📊 Results</h3>")
+    
+    with gr.Tabs():
+        with gr.TabItem("🎯 GANN Table"):
+            table_output = gr.HTML()
         
-        with gr.Tabs():
-            with gr.TabItem("Advanced Table"):
-                table_output = gr.HTML()
-            
-            with gr.TabItem("Data View"):
-               dataframe_output = gr.Dataframe()
-            
-            with gr.TabItem("Chart Analysis"):
-                chart_output = gr.Plot()
+        with gr.TabItem("📋 Data View"):
+            dataframe_output = gr.Dataframe()
+        
+        with gr.TabItem("📈 Chart Analysis"):
+            chart_output = gr.Plot()
 
     # Event handlers
     def update_interface(base_val, fact, lvls, tol, chart):
